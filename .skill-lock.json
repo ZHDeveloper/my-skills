@@ -1,0 +1,433 @@
+{
+  "version": 3,
+  "skills": {
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "c2f31172b6f256272305a5e6e7228b258446899f",
+      "installedAt": "2026-02-20T01:34:52.932Z",
+      "updatedAt": "2026-02-20T01:34:52.932Z"
+    },
+    "brainstorming": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/brainstorming/SKILL.md",
+      "skillFolderHash": "d28aa4ed67fe5a3f1336f0fcccb1e548c67dc864",
+      "installedAt": "2026-02-22T13:49:56.307Z",
+      "updatedAt": "2026-02-22T13:49:56.307Z"
+    },
+    "dispatching-parallel-agents": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/dispatching-parallel-agents/SKILL.md",
+      "skillFolderHash": "7c90f50b6fe4631ed73563396a8f87a505915509",
+      "installedAt": "2026-02-22T13:49:56.412Z",
+      "updatedAt": "2026-02-22T13:49:56.412Z"
+    },
+    "executing-plans": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/executing-plans/SKILL.md",
+      "skillFolderHash": "75248b138170840e3e82680cfde7ca615414a548",
+      "installedAt": "2026-02-22T13:49:56.489Z",
+      "updatedAt": "2026-02-22T13:49:56.489Z"
+    },
+    "finishing-a-development-branch": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/finishing-a-development-branch/SKILL.md",
+      "skillFolderHash": "7656b8ebe0c9659ea548ba2981b078b333d1846e",
+      "installedAt": "2026-02-22T13:49:56.957Z",
+      "updatedAt": "2026-02-22T13:49:56.957Z"
+    },
+    "receiving-code-review": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/receiving-code-review/SKILL.md",
+      "skillFolderHash": "7750c56fddb8b2f1cbdb1550a6e3e40d2eeac5f1",
+      "installedAt": "2026-02-22T13:49:57.037Z",
+      "updatedAt": "2026-02-22T13:49:57.037Z"
+    },
+    "requesting-code-review": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/requesting-code-review/SKILL.md",
+      "skillFolderHash": "dbe9c65c5af4fa294ec9d60c1732d806e664530c",
+      "installedAt": "2026-02-22T13:49:57.123Z",
+      "updatedAt": "2026-02-22T13:49:57.123Z"
+    },
+    "subagent-driven-development": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/subagent-driven-development/SKILL.md",
+      "skillFolderHash": "0a57c1590ddebe07ab4963238b6429447459659a",
+      "installedAt": "2026-02-22T13:49:57.204Z",
+      "updatedAt": "2026-02-22T13:49:57.204Z"
+    },
+    "systematic-debugging": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/systematic-debugging/SKILL.md",
+      "skillFolderHash": "828c239ac986cc1fc7edd10292f66e4a3640e9c0",
+      "installedAt": "2026-02-22T13:49:57.293Z",
+      "updatedAt": "2026-02-22T13:49:57.293Z"
+    },
+    "test-driven-development": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/test-driven-development/SKILL.md",
+      "skillFolderHash": "98904a7d8e0e04b9bd46220b9b17298f45fe0b72",
+      "installedAt": "2026-02-22T13:49:57.369Z",
+      "updatedAt": "2026-02-22T13:49:57.369Z"
+    },
+    "using-git-worktrees": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/using-git-worktrees/SKILL.md",
+      "skillFolderHash": "a5b3f5965f321175a7f07dcadff0bb79adb9e9f7",
+      "installedAt": "2026-02-22T13:49:57.447Z",
+      "updatedAt": "2026-02-22T13:49:57.447Z"
+    },
+    "using-superpowers": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/using-superpowers/SKILL.md",
+      "skillFolderHash": "2a7f5982368c25f5352a5be2d10ad9a753334226",
+      "installedAt": "2026-02-22T13:49:57.521Z",
+      "updatedAt": "2026-02-22T13:49:57.521Z"
+    },
+    "verification-before-completion": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/verification-before-completion/SKILL.md",
+      "skillFolderHash": "ceb2f1f67f4cadb29b32a06e54d3d0be832071f5",
+      "installedAt": "2026-02-22T13:49:57.609Z",
+      "updatedAt": "2026-02-22T13:49:57.609Z"
+    },
+    "writing-plans": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/writing-plans/SKILL.md",
+      "skillFolderHash": "cf6f5c8813cf0445276129a5f2b443927b50f645",
+      "installedAt": "2026-02-22T13:49:57.708Z",
+      "updatedAt": "2026-02-22T13:49:57.708Z"
+    },
+    "writing-skills": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/writing-skills/SKILL.md",
+      "skillFolderHash": "657cdd6aef472054ffd3f0e7798494d79be9f807",
+      "installedAt": "2026-02-22T13:49:57.946Z",
+      "updatedAt": "2026-02-22T13:49:57.946Z"
+    },
+    "mobile-ios-design": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/ui-design/skills/mobile-ios-design/SKILL.md",
+      "skillFolderHash": "bb1282a12b6298c13e499b84eb61c9928f7f8362",
+      "installedAt": "2026-02-22T13:52:45.094Z",
+      "updatedAt": "2026-02-22T13:52:45.094Z"
+    },
+    "ios-debugger-agent": {
+      "source": "dimillian/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/dimillian/skills.git",
+      "skillPath": "ios-debugger-agent/SKILL.md",
+      "skillFolderHash": "5a2307f9f2ef55ae85141bf48650997a164b8df0",
+      "installedAt": "2026-02-22T13:53:02.317Z",
+      "updatedAt": "2026-02-22T13:53:02.317Z"
+    },
+    "ios-swift-development": {
+      "source": "aj-geddes/useful-ai-prompts",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/aj-geddes/useful-ai-prompts.git",
+      "skillPath": "skills/ios-swift-development/SKILL.md",
+      "skillFolderHash": "0589029bc48a6702dc28486c8ecdd3e928de618e",
+      "installedAt": "2026-02-22T13:53:09.175Z",
+      "updatedAt": "2026-02-22T13:53:09.175Z"
+    },
+    "ios-simulator-skill": {
+      "source": "conorluddy/ios-simulator-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/conorluddy/ios-simulator-skill.git",
+      "skillPath": "ios-simulator-skill/SKILL.md",
+      "skillFolderHash": "1735d977d08330ae5d530c9c1b81f2a1a7df3541",
+      "installedAt": "2026-02-22T13:53:14.512Z",
+      "updatedAt": "2026-02-22T13:53:14.512Z"
+    },
+    "product-management": {
+      "source": "vasilyu1983/ai-agents-public",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vasilyu1983/ai-agents-public.git",
+      "skillPath": "frameworks/shared-skills/skills/product-management/SKILL.md",
+      "skillFolderHash": "b4162ccc171ddc9d3daaa04503419134a475a7e4",
+      "installedAt": "2026-02-22T13:56:47.256Z",
+      "updatedAt": "2026-02-22T13:56:47.256Z"
+    },
+    "webapp-testing": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/skills.git",
+      "skillPath": "skills/webapp-testing/SKILL.md",
+      "skillFolderHash": "74cb751576f9e9af2aedff47e67861ef26db2dc4",
+      "installedAt": "2026-02-22T13:56:54.573Z",
+      "updatedAt": "2026-02-22T13:56:54.573Z"
+    },
+    "e2e-testing-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/developer-essentials/skills/e2e-testing-patterns/SKILL.md",
+      "skillFolderHash": "50d7d0ebab41d72a7dbc6cb2cf2331cacc392eff",
+      "installedAt": "2026-02-22T13:57:03.531Z",
+      "updatedAt": "2026-02-22T13:57:03.531Z"
+    },
+    "ui-design-system": {
+      "source": "samhvw8/dot-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/samhvw8/dot-claude.git",
+      "skillPath": "skills/ui-design-system/SKILL.md",
+      "skillFolderHash": "1991972b763311818452fbec933f70030b12bbec",
+      "installedAt": "2026-02-22T13:57:21.467Z",
+      "updatedAt": "2026-02-22T13:57:21.467Z"
+    },
+    "critical-thinking-logical-reasoning": {
+      "source": "sammcj/agentic-coding",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sammcj/agentic-coding.git",
+      "skillPath": "skills/critical-thinking-logical-reasoning/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-02-22T13:57:26.924Z",
+      "updatedAt": "2026-02-22T13:57:26.924Z"
+    },
+    "axiom-apple-docs": {
+      "source": "charleswiltgen/axiom",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/charleswiltgen/axiom.git",
+      "skillPath": ".claude-plugin/plugins/axiom/skills/axiom-apple-docs/SKILL.md",
+      "skillFolderHash": "b6f9b1cdb290b2a154123d3f317cecac973671d6",
+      "installedAt": "2026-02-22T13:57:35.332Z",
+      "updatedAt": "2026-02-22T13:57:35.332Z"
+    },
+    "axiom-apple-docs-research": {
+      "source": "charleswiltgen/axiom",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/charleswiltgen/axiom.git",
+      "skillPath": ".claude-plugin/plugins/axiom/skills/axiom-apple-docs-research/SKILL.md",
+      "skillFolderHash": "e5c76e6637ae31ca43f2b8a196b461473ce48557",
+      "installedAt": "2026-02-22T13:57:43.897Z",
+      "updatedAt": "2026-02-22T13:57:43.897Z"
+    },
+    "ios-hig-design": {
+      "source": "wondelai/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wondelai/skills.git",
+      "skillPath": "ios-hig-design/SKILL.md",
+      "skillFolderHash": "f4c8db8321a9fe2e09b046ca210e9bac5a1c8c7e",
+      "installedAt": "2026-02-22T13:57:48.909Z",
+      "updatedAt": "2026-02-22T13:57:48.909Z"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/skills.git",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "skillFolderHash": "928950704df8a8b885c03de5da626331e6f29cf8",
+      "installedAt": "2026-02-22T14:00:55.864Z",
+      "updatedAt": "2026-02-22T14:00:55.864Z"
+    },
+    "vercel-react-best-practices": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-skills.git",
+      "skillPath": "skills/react-best-practices/SKILL.md",
+      "skillFolderHash": "079b06a135401704ea94ab74c7c9d86c92ba259f",
+      "installedAt": "2026-02-22T14:01:10.942Z",
+      "updatedAt": "2026-02-22T14:01:10.942Z"
+    },
+    "nextjs-app-router-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/frontend-mobile-development/skills/nextjs-app-router-patterns/SKILL.md",
+      "skillFolderHash": "09b5161a206bf7aaea11df7f4f960f6359680950",
+      "installedAt": "2026-02-22T14:01:19.584Z",
+      "updatedAt": "2026-02-22T14:01:19.584Z"
+    },
+    "typescript-advanced-types": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/javascript-typescript/skills/typescript-advanced-types/SKILL.md",
+      "skillFolderHash": "782e78a277e639718b0f9fec905ca51bb16a5a95",
+      "installedAt": "2026-02-22T14:01:31.466Z",
+      "updatedAt": "2026-02-22T14:01:31.466Z"
+    },
+    "tailwind-design-system": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/frontend-mobile-development/skills/tailwind-design-system/SKILL.md",
+      "skillFolderHash": "acbec32115ca1776b32dad36c0c84587a4022d32",
+      "installedAt": "2026-02-22T14:01:54.561Z",
+      "updatedAt": "2026-02-22T14:01:54.561Z"
+    },
+    "frontend-testing-best-practices": {
+      "source": "sergiodxa/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sergiodxa/agent-skills.git",
+      "skillPath": "skills/frontend-testing-best-practices/SKILL.md",
+      "skillFolderHash": "6d2bbcbbc4d88e73aa7f67db4446ce620136ab72",
+      "installedAt": "2026-02-22T14:01:59.499Z",
+      "updatedAt": "2026-02-22T14:01:59.499Z"
+    },
+    "typescript-react-reviewer": {
+      "source": "dotneet/claude-code-marketplace",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/dotneet/claude-code-marketplace.git",
+      "skillPath": "review-tool/skills/typescript-react-reviewer/SKILL.md",
+      "skillFolderHash": "c42f66f381de0fa465b7e2dbc52e8e8f5ecca495",
+      "installedAt": "2026-02-22T14:02:04.540Z",
+      "updatedAt": "2026-02-22T14:02:04.540Z"
+    },
+    "python-performance-optimization": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/python-development/skills/python-performance-optimization/SKILL.md",
+      "skillFolderHash": "ea26a709fa185e46b567c87f9206a4cf6346eeaf",
+      "installedAt": "2026-02-22T14:05:07.929Z",
+      "updatedAt": "2026-02-22T14:05:07.929Z"
+    },
+    "python-testing-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/python-development/skills/python-testing-patterns/SKILL.md",
+      "skillFolderHash": "79ea3b35b9b8bb7dd47b566fd085ec45f8a6efe2",
+      "installedAt": "2026-02-22T14:05:11.796Z",
+      "updatedAt": "2026-02-22T14:05:11.796Z"
+    },
+    "async-python-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/python-development/skills/async-python-patterns/SKILL.md",
+      "skillFolderHash": "05d5fed8e2417aad779c92afdc6df17d0208c422",
+      "installedAt": "2026-02-22T14:05:16.258Z",
+      "updatedAt": "2026-02-22T14:05:16.258Z"
+    },
+    "python-packaging": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/python-development/skills/python-packaging/SKILL.md",
+      "skillFolderHash": "0fca3ed65cc27328abc7a899e27813f4e3004b2c",
+      "installedAt": "2026-02-22T14:05:26.034Z",
+      "updatedAt": "2026-02-22T14:05:26.034Z"
+    },
+    "python-design-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/python-development/skills/python-design-patterns/SKILL.md",
+      "skillFolderHash": "e2ce27f3e5cbb20bf959ab382c76d50e5d76a444",
+      "installedAt": "2026-02-22T14:05:31.466Z",
+      "updatedAt": "2026-02-22T14:05:31.466Z"
+    },
+    "fastapi-templates": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/api-scaffolding/skills/fastapi-templates/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-02-22T14:05:51.462Z",
+      "updatedAt": "2026-02-22T14:05:51.462Z"
+    },
+    "django-expert": {
+      "source": "vintasoftware/django-ai-plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vintasoftware/django-ai-plugins.git",
+      "skillPath": "plugins/django-expert/skills/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-02-22T14:05:55.455Z",
+      "updatedAt": "2026-02-22T14:05:55.455Z"
+    },
+    "pytest": {
+      "source": "bobmatnyc/claude-mpm-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/bobmatnyc/claude-mpm-skills.git",
+      "skillPath": "toolchains/python/testing/pytest/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-02-22T14:06:01.099Z",
+      "updatedAt": "2026-02-22T14:06:01.099Z"
+    },
+    "proactive-agent": {
+      "source": "halthelobster/proactive-agent",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/halthelobster/proactive-agent.git",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "058ed007012a2c88465d2a59edc5cab48596aa59",
+      "installedAt": "2026-02-23T06:33:37.947Z",
+      "updatedAt": "2026-02-23T06:33:37.947Z"
+    },
+    "ui-ux-pro-max": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "skillPath": ".claude/skills/ui-ux-pro-max/SKILL.md",
+      "skillFolderHash": "986c64ad9b8e196a4a737c01872c2eda790daba1",
+      "installedAt": "2026-02-23T13:59:11.633Z",
+      "updatedAt": "2026-02-23T13:59:11.633Z"
+    },
+    "planning-with-files": {
+      "source": "othmanadi/planning-with-files",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/othmanadi/planning-with-files.git",
+      "skillPath": "skills/planning-with-files/SKILL.md",
+      "skillFolderHash": "281eb07ec304504d7e6a97fe35af956a27e3e3bb",
+      "installedAt": "2026-02-23T14:00:05.775Z",
+      "updatedAt": "2026-02-23T14:00:05.775Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "codex",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-cli",
+    "opencode",
+    "antigravity",
+    "augment",
+    "claude-code",
+    "openclaw",
+    "cline",
+    "codebuddy",
+    "command-code",
+    "continue",
+    "crush",
+    "cursor",
+    "droid",
+    "goose"
+  ]
+}
