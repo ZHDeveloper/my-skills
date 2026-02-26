@@ -251,7 +251,7 @@
       "skillPath": "skills/frontend-design/SKILL.md",
       "skillFolderHash": "928950704df8a8b885c03de5da626331e6f29cf8",
       "installedAt": "2026-02-22T14:00:55.864Z",
-      "updatedAt": "2026-02-22T14:00:55.864Z"
+      "updatedAt": "2026-02-26T02:09:25.951Z"
     },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",
@@ -405,6 +405,24 @@
       "skillFolderHash": "281eb07ec304504d7e6a97fe35af956a27e3e3bb",
       "installedAt": "2026-02-23T14:00:05.775Z",
       "updatedAt": "2026-02-23T14:00:05.775Z"
+    },
+    "code-simplifier": {
+      "source": "simonwong/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/simonwong/agent-skills.git",
+      "skillPath": "skills/code-simplifier/SKILL.md",
+      "skillFolderHash": "dc668c13ee8a4798e01437097857e753594261e6",
+      "installedAt": "2026-02-26T02:04:45.434Z",
+      "updatedAt": "2026-02-26T02:04:45.434Z"
+    },
+    "document-skills": {
+      "source": "travisjneuman/.claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/travisjneuman/.claude.git",
+      "skillPath": "skills/document-skills/SKILL.md",
+      "skillFolderHash": "380c509c3180f495781e4b11e05caacda78daff5",
+      "installedAt": "2026-02-26T02:05:42.706Z",
+      "updatedAt": "2026-02-26T02:05:42.706Z"
     }
   },
   "dismissed": {
