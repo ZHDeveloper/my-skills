@@ -423,6 +423,15 @@
       "skillFolderHash": "380c509c3180f495781e4b11e05caacda78daff5",
       "installedAt": "2026-02-26T02:05:42.706Z",
       "updatedAt": "2026-02-26T02:05:42.706Z"
+    },
+    "china-stock-analysis": {
+      "source": "sugarforever/01coder-agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sugarforever/01coder-agent-skills.git",
+      "skillPath": "skills/china-stock-analysis/SKILL.md",
+      "skillFolderHash": "599271d84f6ec35e56cc283abff138f135ff366c",
+      "installedAt": "2026-02-27T05:28:52.913Z",
+      "updatedAt": "2026-02-27T06:48:50.943Z"
     }
   },
   "dismissed": {
