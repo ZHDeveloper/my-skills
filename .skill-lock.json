@@ -159,9 +159,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/aj-geddes/useful-ai-prompts.git",
       "skillPath": "skills/ios-swift-development/SKILL.md",
-      "skillFolderHash": "0589029bc48a6702dc28486c8ecdd3e928de618e",
+      "skillFolderHash": "9f6e39c0ba569f290eac04ae75db5c3d5be3c46b",
       "installedAt": "2026-02-22T13:53:09.175Z",
-      "updatedAt": "2026-02-22T13:53:09.175Z"
+      "updatedAt": "2026-03-03T02:33:26.573Z"
     },
     "ios-simulator-skill": {
       "source": "conorluddy/ios-simulator-skill",
@@ -432,6 +432,15 @@
       "skillFolderHash": "599271d84f6ec35e56cc283abff138f135ff366c",
       "installedAt": "2026-02-27T05:28:52.913Z",
       "updatedAt": "2026-02-27T06:48:50.943Z"
+    },
+    "self-improving-agent": {
+      "source": "charon-fan/agent-playbook",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/charon-fan/agent-playbook.git",
+      "skillPath": "skills/self-improving-agent/SKILL.md",
+      "skillFolderHash": "537ce6775179bb15a725368e85c389a078529ee4",
+      "installedAt": "2026-03-03T02:30:04.541Z",
+      "updatedAt": "2026-03-03T02:30:04.541Z"
     }
   },
   "dismissed": {
