@@ -441,6 +441,24 @@
       "skillFolderHash": "537ce6775179bb15a725368e85c389a078529ee4",
       "installedAt": "2026-03-03T02:30:04.541Z",
       "updatedAt": "2026-03-03T02:30:04.541Z"
+    },
+    "autonomous-agents": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sickn33/antigravity-awesome-skills.git",
+      "skillPath": "skills/autonomous-agents/SKILL.md",
+      "skillFolderHash": "d0441bd9d58dd19f59f1fc32959dfab0d663ff59",
+      "installedAt": "2026-03-03T03:10:56.242Z",
+      "updatedAt": "2026-03-03T03:10:56.242Z"
+    },
+    "tdd-workflow": {
+      "source": "zhukunpenglinyutong/ai-max",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/zhukunpenglinyutong/ai-max.git",
+      "skillPath": "skills/tdd-workflow/SKILL.md",
+      "skillFolderHash": "ea6bf175912f00a7685c0cf470023aa6af0335bd",
+      "installedAt": "2026-03-03T03:10:59.556Z",
+      "updatedAt": "2026-03-03T03:10:59.556Z"
     }
   },
   "dismissed": {
