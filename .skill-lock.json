@@ -459,6 +459,15 @@
       "skillFolderHash": "ea6bf175912f00a7685c0cf470023aa6af0335bd",
       "installedAt": "2026-03-03T03:10:59.556Z",
       "updatedAt": "2026-03-03T03:10:59.556Z"
+    },
+    "workflow-orchestration-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/backend-development/skills/workflow-orchestration-patterns/SKILL.md",
+      "skillFolderHash": "d3a5944f1d4bd5aaa04b6b95c4bb6efe3439a5aa",
+      "installedAt": "2026-03-03T17:00:55.083Z",
+      "updatedAt": "2026-03-03T17:00:55.083Z"
     }
   },
   "dismissed": {
