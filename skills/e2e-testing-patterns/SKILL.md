@@ -1,67 +1,87 @@
 ---
 name: e2e-testing-patterns
-description: Master end-to-end testing with Playwright and Cypress to build reliable test suites that catch bugs, improve confidence, and enable fast deployment. Use when implementing E2E tests, debugging flaky tests, or establishing testing standards.
+model: standard
+category: testing
+description: Build reliable, fast E2E test suites with Playwright and Cypress. Critical user journey coverage, flaky test elimination, CI/CD integration.
+version: 1.0
+keywords: [e2e, end-to-end, playwright, cypress, browser testing, integration tests, test automation, flaky tests, visual regression]
 ---
 
 # E2E Testing Patterns
 
-Build reliable, fast, and maintainable end-to-end test suites that provide confidence to ship code quickly and catch regressions before users do.
+> Test what users do, not how code works. E2E tests prove the system works as a whole — they're your confidence to ship.
 
-## When to Use This Skill
 
-- Implementing end-to-end test automation
-- Debugging flaky or unreliable tests
-- Testing critical user workflows
-- Setting up CI/CD test pipelines
-- Testing across multiple browsers
-- Validating accessibility requirements
-- Testing responsive designs
-- Establishing E2E testing standards
+## Installation
 
-## Core Concepts
+### OpenClaw / Moltbot / Clawbot
 
-### 1. E2E Testing Fundamentals
+```bash
+npx clawhub@latest install e2e-testing-patterns
+```
 
-**What to Test with E2E:**
 
-- Critical user journeys (login, checkout, signup)
-- Complex interactions (drag-and-drop, multi-step forms)
-- Cross-browser compatibility
-- Real API integration
-- Authentication flows
+---
 
-**What NOT to Test with E2E:**
+## WHAT This Skill Does
 
-- Unit-level logic (use unit tests)
-- API contracts (use integration tests)
-- Edge cases (too slow)
-- Internal implementation details
+Provides patterns for building end-to-end test suites that:
+- Catch regressions before users do
+- Run fast enough for CI/CD
+- Remain stable (no flaky failures)
+- Cover critical user journeys without over-testing
 
-### 2. Test Philosophy
+## WHEN To Use
 
-**The Testing Pyramid:**
+- **Implementing E2E test automation** for a web application
+- **Debugging flaky tests** that fail intermittently
+- **Setting up CI/CD test pipelines** with browser tests
+- **Testing critical user workflows** (auth, checkout, signup)
+- **Choosing what to test with E2E** vs unit/integration tests
+
+---
+
+## Test Pyramid — Know Your Layer
 
 ```
         /\
-       /E2E\         ← Few, focused on critical paths
+       /E2E\         ← FEW: Critical paths only (this skill)
       /─────\
-     /Integr\        ← More, test component interactions
+     /Integr\        ← MORE: Component interactions, API contracts
     /────────\
-   /Unit Tests\      ← Many, fast, isolated
+   /Unit Tests\      ← MANY: Fast, isolated, cover edge cases
   /────────────\
 ```
 
-**Best Practices:**
+### What E2E Tests Are For
 
-- Test user behavior, not implementation
-- Keep tests independent
-- Make tests deterministic
-- Optimize for speed
-- Use data-testid, not CSS selectors
+| E2E Tests ✓ | NOT E2E Tests ✗ |
+|-------------|-----------------|
+| Critical user journeys (login → dashboard → action → logout) | Unit-level logic (use unit tests) |
+| Multi-step flows (checkout, onboarding wizard) | API contracts (use integration tests) |
+| Cross-browser compatibility | Edge cases (too slow, use unit tests) |
+| Real API integration | Internal implementation details |
+| Authentication flows | Component visual states (use Storybook) |
+
+**Rule of thumb:** If it would devastate your business to break, E2E test it. If it's just inconvenient, test it faster with unit/integration tests.
+
+---
+
+## Core Principles
+
+| Principle | Why | How |
+|-----------|-----|-----|
+| **Test behavior, not implementation** | Survives refactors | Assert on user-visible outcomes, not DOM structure |
+| **Independent tests** | Parallelizable, debuggable | Each test creates its own data, cleans up after |
+| **Deterministic waits** | No flakiness | Wait for conditions, not fixed timeouts |
+| **Stable selectors** | Survives UI changes | Use `data-testid`, roles, labels — never CSS classes |
+| **Fast feedback** | Developers run them | Mock external services, parallelize, shard |
+
+---
 
 ## Playwright Patterns
 
-### Setup and Configuration
+### Configuration
 
 ```typescript
 // playwright.config.ts
@@ -70,9 +90,7 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: "./e2e",
   timeout: 30000,
-  expect: {
-    timeout: 5000,
-  },
+  expect: { timeout: 5000 },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -93,7 +111,9 @@ export default defineConfig({
 });
 ```
 
-### Pattern 1: Page Object Model
+### Pattern: Page Object Model
+
+Encapsulate page logic. Tests read like user stories.
 
 ```typescript
 // pages/LoginPage.ts
@@ -123,17 +143,13 @@ export class LoginPage {
     await this.passwordInput.fill(password);
     await this.loginButton.click();
   }
-
-  async getErrorMessage(): Promise<string> {
-    return (await this.errorMessage.textContent()) ?? "";
-  }
 }
 
-// Test using Page Object
+// tests/login.spec.ts
 import { test, expect } from "@playwright/test";
-import { LoginPage } from "./pages/LoginPage";
+import { LoginPage } from "../pages/LoginPage";
 
-test("successful login", async ({ page }) => {
+test("successful login redirects to dashboard", async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goto();
   await loginPage.login("user@example.com", "password123");
@@ -141,117 +157,74 @@ test("successful login", async ({ page }) => {
   await expect(page).toHaveURL("/dashboard");
   await expect(page.getByRole("heading", { name: "Dashboard" })).toBeVisible();
 });
-
-test("failed login shows error", async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.goto();
-  await loginPage.login("invalid@example.com", "wrong");
-
-  const error = await loginPage.getErrorMessage();
-  expect(error).toContain("Invalid credentials");
-});
 ```
 
-### Pattern 2: Fixtures for Test Data
+### Pattern: Fixtures for Test Data
+
+Create and clean up test data automatically.
 
 ```typescript
 // fixtures/test-data.ts
 import { test as base } from "@playwright/test";
 
-type TestData = {
-  testUser: {
-    email: string;
-    password: string;
-    name: string;
-  };
-  adminUser: {
-    email: string;
-    password: string;
-  };
-};
-
-export const test = base.extend<TestData>({
+export const test = base.extend<{ testUser: TestUser }>({
   testUser: async ({}, use) => {
-    const user = {
+    // Setup: Create user
+    const user = await createTestUser({
       email: `test-${Date.now()}@example.com`,
       password: "Test123!@#",
-      name: "Test User",
-    };
-    // Setup: Create user in database
-    await createTestUser(user);
-    await use(user);
-    // Teardown: Clean up user
-    await deleteTestUser(user.email);
-  },
-
-  adminUser: async ({}, use) => {
-    await use({
-      email: "admin@example.com",
-      password: process.env.ADMIN_PASSWORD!,
     });
+
+    await use(user);
+
+    // Teardown: Clean up
+    await deleteTestUser(user.id);
   },
 });
 
-// Usage in tests
-import { test } from "./fixtures/test-data";
-
+// Usage — testUser is created before, deleted after
 test("user can update profile", async ({ page, testUser }) => {
   await page.goto("/login");
   await page.getByLabel("Email").fill(testUser.email);
-  await page.getByLabel("Password").fill(testUser.password);
-  await page.getByRole("button", { name: "Login" }).click();
-
-  await page.goto("/profile");
-  await page.getByLabel("Name").fill("Updated Name");
-  await page.getByRole("button", { name: "Save" }).click();
-
-  await expect(page.getByText("Profile updated")).toBeVisible();
+  // ...
 });
 ```
 
-### Pattern 3: Waiting Strategies
+### Pattern: Smart Waiting
+
+Never use fixed timeouts. Wait for specific conditions.
 
 ```typescript
-// ❌ Bad: Fixed timeouts
-await page.waitForTimeout(3000); // Flaky!
+// ❌ FLAKY: Fixed timeout
+await page.waitForTimeout(3000);
 
-// ✅ Good: Wait for specific conditions
+// ✅ STABLE: Wait for conditions
 await page.waitForLoadState("networkidle");
 await page.waitForURL("/dashboard");
-await page.waitForSelector('[data-testid="user-profile"]');
 
-// ✅ Better: Auto-waiting with assertions
+// ✅ BEST: Auto-waiting assertions
 await expect(page.getByText("Welcome")).toBeVisible();
 await expect(page.getByRole("button", { name: "Submit" })).toBeEnabled();
 
 // Wait for API response
 const responsePromise = page.waitForResponse(
-  (response) =>
-    response.url().includes("/api/users") && response.status() === 200,
+  (r) => r.url().includes("/api/users") && r.status() === 200
 );
-await page.getByRole("button", { name: "Load Users" }).click();
-const response = await responsePromise;
-const data = await response.json();
-expect(data.users).toHaveLength(10);
-
-// Wait for multiple conditions
-await Promise.all([
-  page.waitForURL("/success"),
-  page.waitForLoadState("networkidle"),
-  expect(page.getByText("Payment successful")).toBeVisible(),
-]);
+await page.getByRole("button", { name: "Load" }).click();
+await responsePromise;
 ```
 
-### Pattern 4: Network Mocking and Interception
+### Pattern: Network Mocking
+
+Isolate tests from real external services.
 
 ```typescript
-// Mock API responses
-test("displays error when API fails", async ({ page }) => {
+test("shows error when API fails", async ({ page }) => {
+  // Mock the API response
   await page.route("**/api/users", (route) => {
     route.fulfill({
       status: 500,
-      contentType: "application/json",
-      body: JSON.stringify({ error: "Internal Server Error" }),
+      body: JSON.stringify({ error: "Server Error" }),
     });
   });
 
@@ -259,64 +232,22 @@ test("displays error when API fails", async ({ page }) => {
   await expect(page.getByText("Failed to load users")).toBeVisible();
 });
 
-// Intercept and modify requests
-test("can modify API request", async ({ page }) => {
-  await page.route("**/api/users", async (route) => {
-    const request = route.request();
-    const postData = JSON.parse(request.postData() || "{}");
-
-    // Modify request
-    postData.role = "admin";
-
-    await route.continue({
-      postData: JSON.stringify(postData),
-    });
+test("handles slow network gracefully", async ({ page }) => {
+  await page.route("**/api/data", async (route) => {
+    await new Promise((r) => setTimeout(r, 3000)); // Simulate delay
+    await route.continue();
   });
 
-  // Test continues...
-});
-
-// Mock third-party services
-test("payment flow with mocked Stripe", async ({ page }) => {
-  await page.route("**/api/stripe/**", (route) => {
-    route.fulfill({
-      status: 200,
-      body: JSON.stringify({
-        id: "mock_payment_id",
-        status: "succeeded",
-      }),
-    });
-  });
-
-  // Test payment flow with mocked response
+  await page.goto("/dashboard");
+  await expect(page.getByText("Loading...")).toBeVisible();
 });
 ```
+
+---
 
 ## Cypress Patterns
 
-### Setup and Configuration
-
-```typescript
-// cypress.config.ts
-import { defineConfig } from "cypress";
-
-export default defineConfig({
-  e2e: {
-    baseUrl: "http://localhost:3000",
-    viewportWidth: 1280,
-    viewportHeight: 720,
-    video: false,
-    screenshotOnRunFailure: true,
-    defaultCommandTimeout: 10000,
-    requestTimeout: 10000,
-    setupNodeEvents(on, config) {
-      // Implement node event listeners
-    },
-  },
-});
-```
-
-### Pattern 1: Custom Commands
+### Custom Commands
 
 ```typescript
 // cypress/support/commands.ts
@@ -324,13 +255,12 @@ declare global {
   namespace Cypress {
     interface Chainable {
       login(email: string, password: string): Chainable<void>;
-      createUser(userData: UserData): Chainable<User>;
       dataCy(value: string): Chainable<JQuery<HTMLElement>>;
     }
   }
 }
 
-Cypress.Commands.add("login", (email: string, password: string) => {
+Cypress.Commands.add("login", (email, password) => {
   cy.visit("/login");
   cy.get('[data-testid="email"]').type(email);
   cy.get('[data-testid="password"]').type(password);
@@ -338,11 +268,7 @@ Cypress.Commands.add("login", (email: string, password: string) => {
   cy.url().should("include", "/dashboard");
 });
 
-Cypress.Commands.add("createUser", (userData: UserData) => {
-  return cy.request("POST", "/api/users", userData).its("body");
-});
-
-Cypress.Commands.add("dataCy", (value: string) => {
+Cypress.Commands.add("dataCy", (value) => {
   return cy.get(`[data-cy="${value}"]`);
 });
 
@@ -351,48 +277,50 @@ cy.login("user@example.com", "password");
 cy.dataCy("submit-button").click();
 ```
 
-### Pattern 2: Cypress Intercept
+### Network Intercepts
 
 ```typescript
-// Mock API calls
+// Mock API
 cy.intercept("GET", "/api/users", {
   statusCode: 200,
-  body: [
-    { id: 1, name: "John" },
-    { id: 2, name: "Jane" },
-  ],
+  body: [{ id: 1, name: "John" }],
 }).as("getUsers");
 
 cy.visit("/users");
 cy.wait("@getUsers");
-cy.get('[data-testid="user-list"]').children().should("have.length", 2);
-
-// Modify responses
-cy.intercept("GET", "/api/users", (req) => {
-  req.reply((res) => {
-    // Modify response
-    res.body.users = res.body.users.slice(0, 5);
-    res.send();
-  });
-});
-
-// Simulate slow network
-cy.intercept("GET", "/api/data", (req) => {
-  req.reply((res) => {
-    res.delay(3000); // 3 second delay
-    res.send();
-  });
-});
+cy.get('[data-testid="user-list"]').children().should("have.length", 1);
 ```
 
-## Advanced Patterns
+---
 
-### Pattern 1: Visual Regression Testing
+## Selector Strategy
+
+| Priority | Selector Type | Example | Why |
+|----------|--------------|---------|-----|
+| 1 | **Role + name** | `getByRole("button", { name: "Submit" })` | Accessible, user-facing |
+| 2 | **Label** | `getByLabel("Email address")` | Accessible, semantic |
+| 3 | **data-testid** | `getByTestId("checkout-form")` | Stable, explicit for testing |
+| 4 | **Text content** | `getByText("Welcome back")` | User-facing |
+| ❌ | CSS classes | `.btn-primary` | Breaks on styling changes |
+| ❌ | DOM structure | `div > form > input:nth-child(2)` | Breaks on any restructure |
 
 ```typescript
-// With Playwright
-import { test, expect } from "@playwright/test";
+// ❌ BAD: Brittle selectors
+cy.get(".btn.btn-primary.submit-button").click();
+cy.get("div > form > div:nth-child(2) > input").type("text");
 
+// ✅ GOOD: Stable selectors
+page.getByRole("button", { name: "Submit" }).click();
+page.getByLabel("Email address").fill("user@example.com");
+page.getByTestId("email-input").fill("user@example.com");
+```
+
+---
+
+## Visual Regression Testing
+
+```typescript
+// Playwright visual comparisons
 test("homepage looks correct", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveScreenshot("homepage.png", {
@@ -401,144 +329,169 @@ test("homepage looks correct", async ({ page }) => {
   });
 });
 
-test("button in all states", async ({ page }) => {
-  await page.goto("/components");
-
+test("button states", async ({ page }) => {
   const button = page.getByRole("button", { name: "Submit" });
 
-  // Default state
   await expect(button).toHaveScreenshot("button-default.png");
 
-  // Hover state
   await button.hover();
   await expect(button).toHaveScreenshot("button-hover.png");
-
-  // Disabled state
-  await button.evaluate((el) => el.setAttribute("disabled", "true"));
-  await expect(button).toHaveScreenshot("button-disabled.png");
 });
 ```
 
-### Pattern 2: Parallel Testing with Sharding
+---
+
+## Accessibility Testing
 
 ```typescript
-// playwright.config.ts
-export default defineConfig({
-  projects: [
-    {
-      name: "shard-1",
-      use: { ...devices["Desktop Chrome"] },
-      grepInvert: /@slow/,
-      shard: { current: 1, total: 4 },
-    },
-    {
-      name: "shard-2",
-      use: { ...devices["Desktop Chrome"] },
-      shard: { current: 2, total: 4 },
-    },
-    // ... more shards
-  ],
-});
-
-// Run in CI
-// npx playwright test --shard=1/4
-// npx playwright test --shard=2/4
-```
-
-### Pattern 3: Accessibility Testing
-
-```typescript
-// Install: npm install @axe-core/playwright
-import { test, expect } from "@playwright/test";
+// npm install @axe-core/playwright
 import AxeBuilder from "@axe-core/playwright";
 
-test("page should not have accessibility violations", async ({ page }) => {
+test("page has no accessibility violations", async ({ page }) => {
   await page.goto("/");
 
-  const accessibilityScanResults = await new AxeBuilder({ page })
-    .exclude("#third-party-widget")
+  const results = await new AxeBuilder({ page })
+    .exclude("#third-party-widget")  // Exclude things you can't control
     .analyze();
-
-  expect(accessibilityScanResults.violations).toEqual([]);
-});
-
-test("form is accessible", async ({ page }) => {
-  await page.goto("/signup");
-
-  const results = await new AxeBuilder({ page }).include("form").analyze();
 
   expect(results.violations).toEqual([]);
 });
 ```
 
-## Best Practices
+---
 
-1. **Use Data Attributes**: `data-testid` or `data-cy` for stable selectors
-2. **Avoid Brittle Selectors**: Don't rely on CSS classes or DOM structure
-3. **Test User Behavior**: Click, type, see - not implementation details
-4. **Keep Tests Independent**: Each test should run in isolation
-5. **Clean Up Test Data**: Create and destroy test data in each test
-6. **Use Page Objects**: Encapsulate page logic
-7. **Meaningful Assertions**: Check actual user-visible behavior
-8. **Optimize for Speed**: Mock when possible, parallel execution
+## Debugging Failed Tests
 
-```typescript
-// ❌ Bad selectors
-cy.get(".btn.btn-primary.submit-button").click();
-cy.get("div > form > div:nth-child(2) > input").type("text");
-
-// ✅ Good selectors
-cy.getByRole("button", { name: "Submit" }).click();
-cy.getByLabel("Email address").type("user@example.com");
-cy.get('[data-testid="email-input"]').type("user@example.com");
-```
-
-## Common Pitfalls
-
-- **Flaky Tests**: Use proper waits, not fixed timeouts
-- **Slow Tests**: Mock external APIs, use parallel execution
-- **Over-Testing**: Don't test every edge case with E2E
-- **Coupled Tests**: Tests should not depend on each other
-- **Poor Selectors**: Avoid CSS classes and nth-child
-- **No Cleanup**: Clean up test data after each test
-- **Testing Implementation**: Test user behavior, not internals
-
-## Debugging Failing Tests
-
-```typescript
-// Playwright debugging
-// 1. Run in headed mode
+```bash
+# Run in headed mode (see the browser)
 npx playwright test --headed
 
-// 2. Run in debug mode
+# Debug mode (step through)
 npx playwright test --debug
 
-// 3. Use trace viewer
-await page.screenshot({ path: 'screenshot.png' });
-await page.video()?.saveAs('video.webm');
-
-// 4. Add test.step for better reporting
-test('checkout flow', async ({ page }) => {
-    await test.step('Add item to cart', async () => {
-        await page.goto('/products');
-        await page.getByRole('button', { name: 'Add to Cart' }).click();
-    });
-
-    await test.step('Proceed to checkout', async () => {
-        await page.goto('/cart');
-        await page.getByRole('button', { name: 'Checkout' }).click();
-    });
-});
-
-// 5. Inspect page state
-await page.pause();  // Pauses execution, opens inspector
+# Show trace viewer for failed tests
+npx playwright show-report
 ```
 
-## Resources
+```typescript
+// Add test steps for better failure reports
+test("checkout flow", async ({ page }) => {
+  await test.step("Add item to cart", async () => {
+    await page.goto("/products");
+    await page.getByRole("button", { name: "Add to Cart" }).click();
+  });
 
-- **references/playwright-best-practices.md**: Playwright-specific patterns
-- **references/cypress-best-practices.md**: Cypress-specific patterns
-- **references/flaky-test-debugging.md**: Debugging unreliable tests
-- **assets/e2e-testing-checklist.md**: What to test with E2E
-- **assets/selector-strategies.md**: Finding reliable selectors
-- **scripts/test-analyzer.ts**: Analyze test flakiness and duration
+  await test.step("Complete checkout", async () => {
+    await page.goto("/checkout");
+    // ... if this fails, you know which step
+  });
+});
+
+// Pause for manual inspection
+await page.pause();
+```
+
+---
+
+## Flaky Test Checklist
+
+When a test fails intermittently, check:
+
+| Issue | Fix |
+|-------|-----|
+| Fixed `waitForTimeout()` calls | Replace with `waitForSelector()` or expect assertions |
+| Race conditions on page load | Wait for `networkidle` or specific elements |
+| Test data pollution | Ensure tests create/clean their own data |
+| Animation timing | Wait for animations to complete or disable them |
+| Viewport inconsistency | Set explicit viewport in config |
+| Random test order issues | Tests must be independent |
+| Third-party service flakiness | Mock external APIs |
+
+---
+
+## CI/CD Integration
+
+```yaml
+# GitHub Actions example
+name: E2E Tests
+on: [push, pull_request]
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - run: npm run build
+      - run: npm run start & npx wait-on http://localhost:3000
+      - run: npx playwright test
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+```
+
+---
+
+## NEVER Do
+
+1. **NEVER use fixed `waitForTimeout()` or `cy.wait(ms)`** — they cause flaky tests and slow down suites
+2. **NEVER rely on CSS classes or DOM structure for selectors** — use roles, labels, or data-testid
+3. **NEVER share state between tests** — each test must be completely independent
+4. **NEVER test implementation details** — test what users see and do, not internal structure
+5. **NEVER skip cleanup** — always delete test data you created, even on failure
+6. **NEVER test everything with E2E** — reserve for critical paths; use faster tests for edge cases
+7. **NEVER ignore flaky tests** — fix them immediately or delete them; a flaky test is worse than no test
+8. **NEVER hardcode test data in selectors** — use dynamic waits for content that varies
+
+---
+
+## Quick Reference
+
+### Playwright Commands
+
+```typescript
+// Navigation
+await page.goto("/path");
+await page.goBack();
+await page.reload();
+
+// Interactions
+await page.click("selector");
+await page.fill("selector", "text");
+await page.type("selector", "text");  // Types character by character
+await page.selectOption("select", "value");
+await page.check("checkbox");
+
+// Assertions
+await expect(page).toHaveURL("/expected");
+await expect(locator).toBeVisible();
+await expect(locator).toHaveText("expected");
+await expect(locator).toBeEnabled();
+await expect(locator).toHaveCount(3);
+```
+
+### Cypress Commands
+
+```typescript
+// Navigation
+cy.visit("/path");
+cy.go("back");
+cy.reload();
+
+// Interactions
+cy.get("selector").click();
+cy.get("selector").type("text");
+cy.get("selector").clear().type("text");
+cy.get("select").select("value");
+cy.get("checkbox").check();
+
+// Assertions
+cy.url().should("include", "/expected");
+cy.get("selector").should("be.visible");
+cy.get("selector").should("have.text", "expected");
+cy.get("selector").should("have.length", 3);
+```
