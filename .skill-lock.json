@@ -468,6 +468,60 @@
       "skillFolderHash": "d3a5944f1d4bd5aaa04b6b95c4bb6efe3439a5aa",
       "installedAt": "2026-03-03T17:00:55.083Z",
       "updatedAt": "2026-03-03T17:00:55.083Z"
+    },
+    "design-md": {
+      "source": "google-labs-code/stitch-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/google-labs-code/stitch-skills.git",
+      "skillPath": "skills/design-md/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-03-04T07:46:45.681Z",
+      "updatedAt": "2026-03-04T07:46:45.681Z"
+    },
+    "enhance-prompt": {
+      "source": "google-labs-code/stitch-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/google-labs-code/stitch-skills.git",
+      "skillPath": "skills/enhance-prompt/SKILL.md",
+      "skillFolderHash": "ee608061b9209907f5f296670483884c5eb20827",
+      "installedAt": "2026-03-04T07:46:58.235Z",
+      "updatedAt": "2026-03-04T07:46:58.235Z"
+    },
+    "stitch-loop": {
+      "source": "google-labs-code/stitch-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/google-labs-code/stitch-skills.git",
+      "skillPath": "skills/stitch-loop/SKILL.md",
+      "skillFolderHash": "560ccf6d41fcb8189c609b78f7b5e20c4be9f051",
+      "installedAt": "2026-03-04T07:47:06.439Z",
+      "updatedAt": "2026-03-04T07:47:06.439Z"
+    },
+    "axiom-swift-testing": {
+      "source": "charleswiltgen/axiom",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/charleswiltgen/axiom.git",
+      "skillPath": ".claude-plugin/plugins/axiom/skills/axiom-swift-testing/SKILL.md",
+      "skillFolderHash": "3da5ced601c31e97ef3adbeb066ca806183e7cbd",
+      "installedAt": "2026-03-04T13:41:48.693Z",
+      "updatedAt": "2026-03-04T19:02:09.845Z"
+    },
+    "web-search-plus": {
+      "source": "robbyczgw-cla/web-search-plus",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/robbyczgw-cla/web-search-plus.git",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "4e64e3aa27848e783eedce85889542223920a6fc",
+      "installedAt": "2026-03-05T02:07:29.571Z",
+      "updatedAt": "2026-03-05T02:07:29.571Z"
+    },
+    "web-search-tavily": {
+      "source": "jwynia/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jwynia/agent-skills.git",
+      "skillPath": "skills/general/research/tools/web-search-tavily/SKILL.md",
+      "skillFolderHash": "2551894e0c27004ec39f49a942f09038cf3d3dc2",
+      "installedAt": "2026-03-05T02:13:07.202Z",
+      "updatedAt": "2026-03-05T02:18:44.583Z"
     }
   },
   "dismissed": {
@@ -475,7 +529,9 @@
   },
   "lastSelectedAgents": [
     "amp",
+    "cline",
     "codex",
+    "cursor",
     "gemini-cli",
     "github-copilot",
     "kimi-cli",
@@ -484,13 +540,9 @@
     "augment",
     "claude-code",
     "openclaw",
-    "cline",
     "codebuddy",
-    "command-code",
-    "continue",
-    "crush",
-    "cursor",
-    "droid",
-    "goose"
+    "qoder",
+    "trae",
+    "windsurf"
   ]
 }
