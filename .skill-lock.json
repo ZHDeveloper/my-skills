@@ -541,6 +541,24 @@
       "skillFolderHash": "",
       "installedAt": "2026-03-05T08:27:38.163Z",
       "updatedAt": "2026-03-05T08:27:38.163Z"
+    },
+    "qa-testing-ios": {
+      "source": "vasilyu1983/ai-agents-public",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vasilyu1983/ai-agents-public.git",
+      "skillPath": "frameworks/shared-skills/skills/qa-testing-ios/SKILL.md",
+      "skillFolderHash": "6450321d967bf7e10a8d0c2a3db0943420efe0d4",
+      "installedAt": "2026-03-06T03:17:31.105Z",
+      "updatedAt": "2026-03-06T03:17:31.105Z"
+    },
+    "axiom-xctest-automation": {
+      "source": "charleswiltgen/axiom",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/charleswiltgen/axiom.git",
+      "skillPath": ".claude-plugin/plugins/axiom/skills/axiom-xctest-automation/SKILL.md",
+      "skillFolderHash": "85f58e28cfcab98abad1880db85de827a2108428",
+      "installedAt": "2026-03-08T02:55:46.751Z",
+      "updatedAt": "2026-03-08T02:55:46.751Z"
     }
   },
   "dismissed": {
