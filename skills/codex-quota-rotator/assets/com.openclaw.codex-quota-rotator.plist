@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.openclaw.codex-quota-rotator</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/node</string>
+    <string>/Users/king/.agents/skills/codex-quota-rotator/scripts/rotate_once.mjs</string>
+    <string>--threshold</string>
+    <string>10</string>
+    <string>--profile</string>
+    <string>openai-codex:default</string>
+    <string>--restart-gateway</string>
+  </array>
+
+  <key>StartInterval</key>
+  <integer>120</integer>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/king/Library/Logs/codex-quota-rotator.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/king/Library/Logs/codex-quota-rotator.err.log</string>
+</dict>
+</plist>
