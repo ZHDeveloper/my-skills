@@ -6,6 +6,8 @@ import { execFileSync } from 'node:child_process';
 const CODEX_ACCOUNTS_PATH = '/Users/king/.openclaw/codex_accounts.json';
 const AUTH_PROFILES_PATH = '/Users/king/.openclaw/agents/main/agent/auth-profiles.json';
 
+const CODEX_USAGE_URL = 'https://chatgpt.com/backend-api/wham/usage';
+
 function parseArgs(argv) {
   const args = {
     threshold: 10,
@@ -42,11 +44,110 @@ function jwtPayload(token) {
   return JSON.parse(json);
 }
 
+function extractChatGPTAccountIdFromAccessToken(accessToken) {
+  const payload = jwtPayload(accessToken);
+  const auth = payload?.['https://api.openai.com/auth'];
+  const id = auth?.chatgpt_account_id || auth?.chatgptAccountId || auth?.account_id;
+  return typeof id === 'string' && id.trim() ? id.trim() : null;
+}
+
+function calcRemainingFromUsedPercent(usedPercent) {
+  if (typeof usedPercent !== 'number') return null;
+  const used = Math.max(0, Math.min(100, usedPercent));
+  return 100 - used;
+}
+
+function deriveQuotaFromUsageResponse(raw) {
+  // mirror cockpit-tools logic (primary_window => hourly/session, secondary_window => weekly)
+  const rateLimit = raw?.rate_limit;
+  const primary = rateLimit?.primary_window;
+  const secondary = rateLimit?.secondary_window;
+
+  const hourlyUsed = primary?.used_percent;
+  const weeklyUsed = secondary?.used_percent;
+
+  const hourly_percentage = calcRemainingFromUsedPercent(hourlyUsed) ?? 100;
+  const weekly_percentage = calcRemainingFromUsedPercent(weeklyUsed) ?? 100;
+
+  const hourly_reset_time = primary?.reset_at ?? null;
+  const weekly_reset_time = secondary?.reset_at ?? null;
+
+  const hourly_window_minutes =
+    typeof primary?.limit_window_seconds === 'number' && primary.limit_window_seconds > 0
+      ? Math.ceil(primary.limit_window_seconds / 60)
+      : null;
+  const weekly_window_minutes =
+    typeof secondary?.limit_window_seconds === 'number' && secondary.limit_window_seconds > 0
+      ? Math.ceil(secondary.limit_window_seconds / 60)
+      : null;
+
+  return {
+    hourly_percentage,
+    hourly_reset_time,
+    hourly_window_minutes,
+    hourly_window_present: primary ? true : false,
+
+    weekly_percentage,
+    weekly_reset_time,
+    weekly_window_minutes,
+    weekly_window_present: secondary ? true : false,
+
+    raw_data: raw,
+  };
+}
+
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+async function fetchUsageQuotaForAccount(account) {
+  const accessToken = account?.tokens?.access_token;
+  if (!accessToken) throw new Error('missing access_token');
+
+  const accountIdHeader = account?.account_id || extractChatGPTAccountIdFromAccessToken(accessToken);
+
+  const headers = {
+    accept: 'application/json',
+    authorization: `Bearer ${accessToken}`,
+  };
+  if (accountIdHeader) headers['ChatGPT-Account-Id'] = accountIdHeader;
+
+  // Retry once on transient network failures
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const res = await fetch(CODEX_USAGE_URL, { method: 'GET', headers });
+      const text = await res.text();
+      let json;
+      try {
+        json = JSON.parse(text);
+      } catch {
+        json = null;
+      }
+
+      if (!res.ok) {
+        const code = json?.detail?.code || json?.code;
+        const preview = text?.slice(0, 200);
+        throw new Error(
+          `usage api ${res.status} ${res.statusText}${code ? ` [error_code:${code}]` : ''} - ${preview}`
+        );
+      }
+
+      return { raw: json ?? {}, quota: deriveQuotaFromUsageResponse(json ?? {}) };
+    } catch (e) {
+      if (attempt >= 2) throw e;
+      await sleep(500);
+    }
+  }
+
+  // unreachable
+  throw new Error('failed to fetch usage quota');
+}
+
 function remainingPct(account) {
   if (typeof account?.quota?.hourly_percentage === 'number') return account.quota.hourly_percentage;
   const used = account?.quota?.raw_data?.rate_limit?.primary_window?.used_percent;
-  if (typeof used === 'number') return Math.max(0, Math.min(100, 100 - used));
-  return null;
+  const rem = calcRemainingFromUsedPercent(used);
+  return typeof rem === 'number' ? rem : null;
 }
 
 function isHealthy(account, threshold) {
@@ -62,7 +163,7 @@ function atomicWriteJson(targetPath, obj) {
   fs.renameSync(tmp, targetPath);
 }
 
-function main() {
+async function main() {
   const { threshold, profile, dryRun, restartGateway } = parseArgs(process.argv);
 
   const accounts = readJson(CODEX_ACCOUNTS_PATH);
@@ -71,9 +172,56 @@ function main() {
   const p = authProfiles?.profiles?.[profile];
   if (!p) throw new Error(`Profile not found: ${profile}`);
 
-  const currentAccountId = p.accountId;
-  const current = accounts.find(a => a.account_id === currentAccountId);
+  let currentAccountId = p.accountId;
+  if (!currentAccountId && p.access) {
+    currentAccountId = extractChatGPTAccountIdFromAccessToken(p.access);
+  }
+  let current = accounts.find(a => a.account_id === currentAccountId);
+
+  const now = new Date().toISOString();
+
+  // Always refresh current account quota (cockpit-tools approach)
+  if (current) {
+    try {
+      const { quota } = await fetchUsageQuotaForAccount(current);
+      current.quota = quota;
+      current.quota_error = null;
+
+      // persist back to codex_accounts.json
+      if (!dryRun) {
+        atomicWriteJson(CODEX_ACCOUNTS_PATH, accounts);
+      }
+    } catch (e) {
+      current.quota_error = { message: String(e?.message || e), timestamp: Date.now() };
+      console.error(`[${now}] WARN: failed to refresh current quota: ${current.quota_error.message}`);
+      if (!dryRun) atomicWriteJson(CODEX_ACCOUNTS_PATH, accounts);
+    }
+  }
+
   const currentRemaining = current ? remainingPct(current) : null;
+  console.log(`[${now}] current accountId=${currentAccountId ?? 'null'} remaining=${currentRemaining ?? 'unknown'}% threshold=${threshold}%`);
+
+  const needSwitch = currentRemaining === null || currentRemaining < threshold;
+  if (!needSwitch) {
+    console.log(`[${now}] OK: no switch needed.`);
+    return;
+  }
+
+  // If switching is needed, refresh all candidates so "healthy" is based on real-time quota
+  for (const acc of accounts) {
+    if (acc.account_id === currentAccountId) continue;
+    try {
+      const { quota } = await fetchUsageQuotaForAccount(acc);
+      acc.quota = quota;
+      acc.quota_error = null;
+    } catch (e) {
+      acc.quota_error = { message: String(e?.message || e), timestamp: Date.now() };
+    }
+  }
+
+  if (!dryRun) {
+    atomicWriteJson(CODEX_ACCOUNTS_PATH, accounts);
+  }
 
   const healthy = accounts
     .filter(a => a.account_id !== currentAccountId)
@@ -83,16 +231,6 @@ function main() {
       remaining: remainingPct(a),
     }))
     .sort((x, y) => (y.remaining ?? -1) - (x.remaining ?? -1));
-
-  const needSwitch = typeof currentRemaining === 'number' && currentRemaining < threshold;
-
-  const now = new Date().toISOString();
-  console.log(`[${now}] current accountId=${currentAccountId ?? 'null'} remaining=${currentRemaining ?? 'unknown'}% threshold=${threshold}%`);
-
-  if (!needSwitch) {
-    console.log(`[${now}] OK: no switch needed.`);
-    return;
-  }
 
   const best = healthy[0]?.account;
   if (!best) {
@@ -135,9 +273,7 @@ function main() {
   }
 }
 
-try {
-  main();
-} catch (err) {
+main().catch((err) => {
   console.error(String(err?.stack || err));
   process.exit(1);
-}
+});

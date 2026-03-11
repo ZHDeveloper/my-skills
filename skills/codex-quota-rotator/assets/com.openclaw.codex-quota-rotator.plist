@@ -7,7 +7,7 @@
 
   <key>ProgramArguments</key>
   <array>
-    <string>/usr/bin/node</string>
+    <string>/opt/homebrew/bin/node</string>
     <string>/Users/king/.agents/skills/codex-quota-rotator/scripts/rotate_once.mjs</string>
     <string>--threshold</string>
     <string>10</string>
@@ -17,7 +17,7 @@
   </array>
 
   <key>StartInterval</key>
-  <integer>120</integer>
+  <integer>300</integer>
 
   <key>RunAtLoad</key>
   <true/>

@@ -559,6 +559,33 @@
       "skillFolderHash": "85f58e28cfcab98abad1880db85de827a2108428",
       "installedAt": "2026-03-08T02:55:46.751Z",
       "updatedAt": "2026-03-08T02:55:46.751Z"
+    },
+    "videoagent-video-studio": {
+      "source": "pexoai/pexo-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pexoai/pexo-skills.git",
+      "skillPath": "skills/videoagent-video-studio/SKILL.md",
+      "skillFolderHash": "911587ae24de40209498c8234f8ce9ee0acfecbb",
+      "installedAt": "2026-03-10T10:38:53.946Z",
+      "updatedAt": "2026-03-10T10:38:53.946Z"
+    },
+    "video-generate": {
+      "source": "agntswrm/agent-media",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/agntswrm/agent-media.git",
+      "skillPath": "skills/video-generate/SKILL.md",
+      "skillFolderHash": "033a68029d5eb8722434c62311462825f1939f97",
+      "installedAt": "2026-03-10T10:39:07.703Z",
+      "updatedAt": "2026-03-10T10:39:07.703Z"
+    },
+    "remotion-video-toolkit": {
+      "source": "shreefentsar/remotion-video-toolkit",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/shreefentsar/remotion-video-toolkit.git",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "81a412e7872f21f4989e4c07f48cc5b494c294a9",
+      "installedAt": "2026-03-10T10:39:20.303Z",
+      "updatedAt": "2026-03-10T10:39:20.303Z"
     }
   },
   "dismissed": {
