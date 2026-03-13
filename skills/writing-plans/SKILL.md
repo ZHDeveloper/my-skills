@@ -1,6 +1,9 @@
 ---
 name: writing-plans
-description: Use when you have a spec or requirements for a multi-step task, before touching code
+description: "Use when you have a spec or requirements for a multi-step task, before touching code"
+risk: unknown
+source: community
+date_added: "2026-02-27"
 ---
 
 # Writing Plans
@@ -46,7 +49,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 ## Task Structure
 
-````markdown
+```markdown
 ### Task N: [Component Name]
 
 **Files:**
@@ -85,7 +88,7 @@ Expected: PASS
 git add tests/path/test.py src/path/file.py
 git commit -m "feat: add specific feature"
 ```
-````
+```
 
 ## Remember
 - Exact file paths always
@@ -114,3 +117,6 @@ After saving the plan, offer execution choice:
 **If Parallel Session chosen:**
 - Guide them to open new session in worktree
 - **REQUIRED SUB-SKILL:** New session uses superpowers:executing-plans
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.
