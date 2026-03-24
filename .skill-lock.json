@@ -559,27 +559,32 @@
       "skillFolderHash": "85f58e28cfcab98abad1880db85de827a2108428",
       "installedAt": "2026-03-08T02:55:46.751Z",
       "updatedAt": "2026-03-08T02:55:46.751Z"
+    },
+    "agent-tools": {
+      "source": "inferen-sh/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/inferen-sh/skills.git",
+      "skillPath": "tools/agent-tools/SKILL.md",
+      "skillFolderHash": "07fff5cd7b40cd49a49c5d86527de42fae02b476",
+      "installedAt": "2026-03-19T18:46:32.618Z",
+      "updatedAt": "2026-03-19T18:46:32.618Z"
+    },
+    "hot-topics": {
+      "source": "vikiboss/60s-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vikiboss/60s-skills.git",
+      "skillPath": "skills/hot-topics/SKILL.md",
+      "skillFolderHash": "4061c3fffb94c62716081a10b06cfa9353cd19fb",
+      "installedAt": "2026-03-20T02:03:29.075Z",
+      "updatedAt": "2026-03-20T02:03:29.075Z"
     }
   },
   "dismissed": {
     "findSkillsPrompt": true
   },
   "lastSelectedAgents": [
-    "amp",
-    "cline",
     "codex",
     "cursor",
-    "gemini-cli",
-    "github-copilot",
-    "kimi-cli",
-    "opencode",
-    "antigravity",
-    "augment",
-    "claude-code",
-    "openclaw",
-    "codebuddy",
-    "qoder",
-    "trae",
-    "windsurf"
+    "antigravity"
   ]
 }
